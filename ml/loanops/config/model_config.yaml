@@ -1,0 +1,38 @@
+data:
+  features_path: data/processed/loanops_features.csv
+  target_column: is_delayed
+  drop_columns:
+    - case_id
+
+split:
+  test_size: 0.2
+  random_state: 42
+  stratify: true
+
+model:
+  random_state: 42
+  n_estimators: 300
+  learning_rate: 0.05
+  max_depth: 4
+  subsample: 0.9
+  colsample_bytree: 0.9
+  eval_metric: logloss
+
+thresholds:
+  default_threshold: 0.5
+  min_business_precision: 0.5
+
+risk_segmentation:
+  quantiles:
+    - 0.5
+    - 0.75
+    - 0.9
+
+outputs:
+  model_path: models/xgboost_delay_model.joblib
+  model_metadata_path: models/xgboost_delay_model_metadata.json
+  threshold_report_path: reports/threshold_comparison.csv
+  feature_importance_path: reports/feature_importance.csv
+  risk_segment_summary_path: reports/early_risk_segment_summary.csv
+  risk_scores_path: reports/early_risk_scores.csv
+  risk_thresholds_path: models/risk_segment_thresholds.json

@@ -103,3 +103,102 @@ ml-studio/
 - Create an Angular dashboard for risk scoring.
 - Add Docker support.
 - Deploy the project as part of ML Studio.
+
+## Enriched Modeling
+
+This phase extends the original LoanOps process mining analysis with machine learning models for operational delay prediction.
+
+The enriched modeling notebook includes:
+
+* Process-enriched feature engineering.
+* Baseline vs enriched model comparison.
+* XGBoost delay prediction model.
+* Leakage-safe early delay modeling.
+* Threshold optimization for different operational strategies.
+* Early risk segmentation into low, medium, high and critical groups.
+
+### Main Result
+
+The early risk segmentation layer converts model probabilities into actionable operational risk groups. The observed delay rate increases consistently across the predicted risk segments:
+
+| Risk segment | Actual delay rate |
+| ------------ | ----------------: |
+| Low          |              8.4% |
+| Medium       |             37.2% |
+| High         |             43.7% |
+| Critical     |             49.4% |
+
+This confirms that the early model is not only useful for binary classification, but also for ranking loan applications by operational delay risk.
+
+From a banking operations perspective, this enables prioritization of monitoring and manual review before delays fully materialize.
+
+### Business Interpretation
+
+The risk segments can support different operational actions:
+
+| Risk segment | Suggested action                      |
+| ------------ | ------------------------------------- |
+| Low          | Standard automatic processing         |
+| Medium       | Light monitoring                      |
+| High         | Priority review                       |
+| Critical     | Manual review and early-warning alert |
+
+Overall, the enriched modeling phase turns the project from a descriptive process mining analysis into an early-warning risk monitoring system for loan application operations.
+
+### Generated Outputs
+
+This phase generates the following outputs:
+
+* `ml/loanops/notebooks/03_enriched_modeling.ipynb`
+* `ml/loanops/reports/early_risk_segment_summary.csv`
+* `ml/loanops/reports/early_risk_scores.csv`
+
+## Reproducible ML Pipeline
+
+The LoanOps project now includes a modular machine learning pipeline under `ml/loanops`.
+
+The pipeline separates the main ML logic into reusable modules:
+
+* `src/features.py`: feature loading and feature engineering utilities.
+* `src/train.py`: model training, prediction and model saving utilities.
+* `src/evaluate.py`: binary classification metrics and threshold evaluation.
+* `src/risk_segmentation.py`: risk segmentation and operational action mapping.
+* `scripts/run_training.py`: command-line training pipeline.
+* `config/model_config.yaml`: centralized pipeline configuration.
+
+### Setup
+
+From the LoanOps directory:
+
+```bash
+cd ml/loanops
+python -m pip install -r requirements.txt
+```
+
+### Run tests
+
+```bash
+python -m pytest tests -q
+```
+
+### Run the training pipeline
+
+The pipeline expects a processed feature dataset at the path defined in:
+
+```text
+ml/loanops/config/model_config.yaml
+```
+
+Default expected input:
+
+```text
+ml/loanops/data/processed/loanops_features.csv
+```
+
+To execute the training pipeline:
+
+```bash
+python scripts/run_training.py --config config/model_config.yaml
+```
+
+The script trains the XGBoost delay prediction model and generates the configured model artifacts and reports.
