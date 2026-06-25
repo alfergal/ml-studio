@@ -202,3 +202,10 @@ python scripts/run_training.py --config config/model_config.yaml
 ```
 
 The script trains the XGBoost delay prediction model and generates the configured model artifacts and reports.
+
+## Model and Dataset Documentation
+
+The LoanOps project includes dedicated documentation for the machine learning model and dataset:
+
+- [`MODEL_CARD.md`](ml/loanops/MODEL_CARD.md): documents the model purpose, intended use, evaluation approach, leakage considerations, limitations and ethical considerations.
+- [`DATASET_CARD.md`](ml/loanops/DATASET_CARD.md): documents the dataset structure, feature engineering approach, target variable, leakage risks, expected processed data format and limitations.
