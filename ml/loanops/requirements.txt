@@ -11,3 +11,6 @@ shap
 pytest
 jupyter
 ipykernel
+fastapi
+uvicorn
+httpx

@@ -1,9 +1,6 @@
 from argparse import ArgumentParser
-from pathlib import Path
-import json
-
+from src.config import load_config
 import pandas as pd
-import yaml
 
 from src.evaluate import (
     evaluate_binary_classifier,
@@ -28,14 +25,6 @@ from src.train import (
     split_train_test,
     train_classifier,
 )
-
-
-def load_config(path: str | Path) -> dict:
-    config_path = Path(path)
-
-    with config_path.open("r", encoding="utf-8") as file:
-        return yaml.safe_load(file)
-
 
 def main() -> None:
     parser = ArgumentParser()

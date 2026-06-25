@@ -209,3 +209,22 @@ The LoanOps project includes dedicated documentation for the machine learning mo
 
 - [`MODEL_CARD.md`](ml/loanops/MODEL_CARD.md): documents the model purpose, intended use, evaluation approach, leakage considerations, limitations and ethical considerations.
 - [`DATASET_CARD.md`](ml/loanops/DATASET_CARD.md): documents the dataset structure, feature engineering approach, target variable, leakage risks, expected processed data format and limitations.
+
+## FastAPI Risk Service
+
+LoanOps includes a FastAPI service for operational delay risk prediction and risk segmentation.
+
+From `ml/loanops`:
+
+    python -m uvicorn api.main:app --reload
+
+Swagger documentation:
+
+    http://127.0.0.1:8000/docs
+
+Available endpoints:
+
+- `GET /health`
+- `POST /predict`
+
+The `/predict` endpoint expects case-level model features and returns a delay probability together with an operational risk segment.
