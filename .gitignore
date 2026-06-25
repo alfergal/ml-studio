@@ -26,3 +26,6 @@ dist/
 
 # Environment
 .env
+
+# Dataset
+ml/loanops/data/*.csv
