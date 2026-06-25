@@ -152,3 +152,53 @@ This phase generates the following outputs:
 * `ml/loanops/notebooks/03_enriched_modeling.ipynb`
 * `ml/loanops/reports/early_risk_segment_summary.csv`
 * `ml/loanops/reports/early_risk_scores.csv`
+
+## Reproducible ML Pipeline
+
+The LoanOps project now includes a modular machine learning pipeline under `ml/loanops`.
+
+The pipeline separates the main ML logic into reusable modules:
+
+* `src/features.py`: feature loading and feature engineering utilities.
+* `src/train.py`: model training, prediction and model saving utilities.
+* `src/evaluate.py`: binary classification metrics and threshold evaluation.
+* `src/risk_segmentation.py`: risk segmentation and operational action mapping.
+* `scripts/run_training.py`: command-line training pipeline.
+* `config/model_config.yaml`: centralized pipeline configuration.
+
+### Setup
+
+From the LoanOps directory:
+
+```bash
+cd ml/loanops
+python -m pip install -r requirements.txt
+```
+
+### Run tests
+
+```bash
+python -m pytest tests -q
+```
+
+### Run the training pipeline
+
+The pipeline expects a processed feature dataset at the path defined in:
+
+```text
+ml/loanops/config/model_config.yaml
+```
+
+Default expected input:
+
+```text
+ml/loanops/data/processed/loanops_features.csv
+```
+
+To execute the training pipeline:
+
+```bash
+python scripts/run_training.py --config config/model_config.yaml
+```
+
+The script trains the XGBoost delay prediction model and generates the configured model artifacts and reports.
