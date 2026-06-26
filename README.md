@@ -228,3 +228,20 @@ Available endpoints:
 - `POST /predict`
 
 The `/predict` endpoint expects case-level model features and returns a delay probability together with an operational risk segment.
+
+## Risk Dashboard
+
+LoanOps includes a Streamlit dashboard for exploring the operational delay risk segmentation results.
+
+From `ml/loanops`:
+
+```
+python -m streamlit run dashboard/app.py
+```
+
+The dashboard reads:
+
+* `ml/loanops/reports/early_risk_segment_summary.csv`
+* `ml/loanops/reports/early_risk_scores.csv`
+
+It displays model risk segments, delay rates, business actions and optional case-level risk scores.
