@@ -1,0 +1,8 @@
+services:
+  loanops-api:
+    build: .
+    container_name: loanops-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
